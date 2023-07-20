@@ -39,8 +39,8 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $set: req.body },
-        { runValidators: true, new: true }
+        { $set: req.body }
+        // { runValidators: false, new: true }
       );
 
       if (!user) {

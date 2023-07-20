@@ -1,62 +1,65 @@
+const connection = require("../config/connection");
+const { User, Thought, Reaction } = require("../models");
+
 const userData = [
   {
-    userName: "draconisgaladriel",
+    username: "draconisgaladriel",
     email: "dracon@gmail.com",
-    thoughts: ["I love the smell of napalm in the morning"],
+    thoughts: "I love the smell of napalm in the morning",
     friends: ["animagusguldur", "triwizardkili"],
   },
   {
-    userName: "animagusguldur",
+    username: "animagusguldur",
     email: "animagus@gmail.com",
-    thoughts: ["Oh what a beautiful morning"],
+    thoughts: "Oh what a beautiful morning",
     friends: ["draconisgaladriel", "triwizardkili"],
   },
   {
-    userName: "triwizardkili",
+    username: "triwizardkili",
     email: "triwiz@gmail.com",
-    thoughts: ["I'm walking on sunshine"],
+    thoughts: "I'm walking on sunshine",
     friends: ["draconisgaladriel", "animagusguldur"],
   },
   {
-    userName: "beatermoria",
+    username: "beatermoria",
     email: "beater@gmail.com",
-    thoughts: ["You're the sunshine of my life"],
+    thoughts: "You're the sunshine of my life",
     friends: ["muggleithil", "bagshotmidgewater"],
   },
   {
-    userName: "muggleithil",
+    username: "muggleithil",
     email: "muggle@gmail.com",
-    thoughts: ["Somewhere over the rainbow"],
+    thoughts: "Somewhere over the rainbow",
     friends: ["beatermoria", "bagshotmidgewater"],
   },
   {
-    userName: "bagshotmidgewater",
+    username: "bagshotmidgewater",
     email: "bagshot@gmail.com",
-    thoughts: ["I can see clearly now the rain is gone"],
+    thoughts: "I can see clearly now the rain is gone",
     friends: ["beatermoria", "muggleithil"],
   },
   {
-    userName: "durmstrangperegrin",
+    username: "durmstrangperegrin",
     email: "durmstrang@gmail.com",
-    thoughts: ["Have you ever seen the rain?"],
+    thoughts: "Have you ever seen the rain?",
     friends: ["mostafamearas", "twiggerlegolas"],
   },
   {
-    userName: "mostafamearas",
+    username: "mostafamearas",
     email: "mostaf@gmail.com",
-    thoughts: ["Raindrops keep falling on my head"],
+    thoughts: "Raindrops keep falling on my head",
     friends: ["durmstrangperegrin", "twiggerlegolas"],
   },
   {
-    userName: "twiggerlegolas",
+    username: "twiggerlegolas",
     email: "twigger@gmail.com",
-    thoughts: ["I'm singing in the rain"],
+    thoughts: "I'm singing in the rain",
     friends: ["durmstrangperegrin", "mostafamearas"],
   },
   {
-    userName: "fwoopergondor",
+    username: "fwoopergondor",
     email: "fwooper@gmail.com",
-    thoughts: ["Rainy days and Mondays always get me down"],
+    thoughts: "Rainy days and Mondays always get me down",
     friends: ["beatermoria", "mostafamearas"],
   },
 ];
@@ -65,12 +68,12 @@ const thoughtsData = [
   {
     thoughtText: "I love the smell of napalm in the morning",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "draconisgaladriel",
+    username: "draconisgaladriel",
     reactions: [
       {
         reactionId: 1,
         reactionBody: "😀",
-        userName: "animagusguldur",
+        username: "animagusguldur",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -78,12 +81,12 @@ const thoughtsData = [
   {
     thoughtText: "Oh what a beautiful morning",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "animagusguldur",
+    username: "animagusguldur",
     reactions: [
       {
         reactionId: 2,
         reactionBody: "😂",
-        userName: "draconisgaladriel",
+        username: "draconisgaladriel",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -91,12 +94,12 @@ const thoughtsData = [
   {
     thoughtText: "I'm walking on sunshine",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "triwizardkili",
+    username: "triwizardkili",
     reactions: [
       {
         reactionId: 3,
         reactionBody: "😎",
-        userName: "draconisgaladriel",
+        username: "draconisgaladriel",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -104,12 +107,12 @@ const thoughtsData = [
   {
     thoughtText: "You're the sunshine of my life",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "beatermoria",
+    username: "beatermoria",
     reactions: [
       {
         reactionId: 4,
         reactionBody: "😍",
-        userName: "muggleithil",
+        username: "muggleithil",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -117,12 +120,12 @@ const thoughtsData = [
   {
     thoughtText: "Somewhere over the rainbow",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "muggleithil",
+    username: "muggleithil",
     reactions: [
       {
         reactionId: 5,
         reactionBody: "😡",
-        userName: "beatermoria",
+        username: "beatermoria",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -130,12 +133,12 @@ const thoughtsData = [
   {
     thoughtText: "I can see clearly now the rain is gone",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "bagshotmidgewater",
+    username: "bagshotmidgewater",
     reactions: [
       {
         reactionId: 6,
         reactionBody: "🤬",
-        userName: "beatermoria",
+        username: "beatermoria",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -144,12 +147,12 @@ const thoughtsData = [
     thoughtText: "Have you ever seen the rain?",
 
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "durmstrangperegrin",
+    username: "durmstrangperegrin",
     reactions: [
       {
         reactionId: 7,
         reactionBody: "😱",
-        userName: "mostafamearas",
+        username: "mostafamearas",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -157,12 +160,12 @@ const thoughtsData = [
   {
     thoughtText: "Raindrops keep falling on my head",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "mostafamearas",
+    username: "mostafamearas",
     reactions: [
       {
         reactionId: 8,
         reactionBody: "😈",
-        userName: "durmstrangperegrin",
+        username: "durmstrangperegrin",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -170,12 +173,12 @@ const thoughtsData = [
   {
     thoughtText: "I'm singing in the rain",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "twiggerlegolas",
+    username: "twiggerlegolas",
     reactions: [
       {
         reactionId: 9,
         reactionBody: "🤪",
-        userName: "durmstrangperegrin",
+        username: "durmstrangperegrin",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
@@ -183,25 +186,39 @@ const thoughtsData = [
   {
     thoughtText: "Rainy days and Mondays always get me down",
     createdAt: "2021-08-12T18:28:32.925Z",
-    userName: "fwoopergondor",
+    username: "fwoopergondor",
     reactions: [
       {
         reactionId: 10,
         reactionBody: "🤯",
-        userName: "beatermoria",
+        username: "beatermoria",
         createdAt: "2021-08-12T18:28:32.925Z",
       },
     ],
   },
 ];
 
-const seedDatabase = async () => {
-  await User.deleteMany();
-  await Thought.deleteMany();
+connection.on("error", (err) => console.log(err));
 
-  await User.insertMany(userData);
-  await Thought.insertMany(thoughtsData);
+connection.once("open", async () => {
+  console.log("connected to database");
+  let userCheck = await connection.db
+    .listCollections({ name: "users" })
+    .toArray();
+  if (userCheck.length > 0) {
+    await connection.db.dropCollection("users");
+  }
+  await User.create(userData);
+  console.log("users seeded");
 
-  console.log("all done!");
+  let thoughtCheck = await connection.db
+    .listCollections({ name: "thoughts" })
+    .toArray();
+  if (thoughtCheck.length > 0) {
+    await connection.db.dropCollection("thoughts");
+  }
+  await Thought.create(thoughtsData);
+  console.log("thoughts seeded");
+
   process.exit(0);
-};
+});
