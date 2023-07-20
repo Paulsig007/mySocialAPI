@@ -29,15 +29,17 @@ module.exports = {
   // create thought
   async createThought(req, res) {
     try {
+      // console.log("Entered Try Block");
       const dbThoughtData = await Thought.create(req.body);
+      // console.log(dbThoughtData);
       const user = await User.findOneAndUpdate(
-        { _id: req.body.userId },
+        { username: req.body.username },
         { $push: { thoughts: dbThoughtData._id } },
         { new: true }
       );
 
       if (!user) {
-        return res.status(404).json({ message: "No user with this id!" });
+        return res.status(404).json({ message: "No user with this username!" });
       }
 
       res.json(dbThoughtData);
