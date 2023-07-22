@@ -1,5 +1,7 @@
 # mySocial API
 
+walkthrough video: https://drive.google.com/file/d/1HxeTBBjrxWZ8064vChYxbROWI78-3F-S/view
+
 ## Badges
 
 ## Description
