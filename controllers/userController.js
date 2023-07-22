@@ -55,18 +55,19 @@ module.exports = {
   // delete user by id
   async deleteUser(req, res) {
     try {
-      const thoughts = await Thought.deleteMany({
-        username: req.body.username,
+      const user = await User.findOne({ _id: req.params.userId });
+      await Thought.deleteMany({
+        username: user.username,
       });
-      console.log(thoughts);
-      const user = await User.findOneAndDelete({ _id: req.params.userId });
+      // console.log(thoughts);
+      const result = await User.findOneAndDelete({ _id: req.params.userId });
       console.log(user);
 
       if (!user) {
         return res.status(404).json({ message: "No user with this id!" });
       }
 
-      res.json("User and associated thoughts deleted!");
+      res.json(`${result.username} and associated thoughts deleted!`);
     } catch (err) {
       res.status(400).json(err);
     }

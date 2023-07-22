@@ -11,7 +11,25 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
+      get: (createdAtVal) => {
+        const formattedDate = new Date(createdAtVal).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }
+        );
+        const formattedTime = new Date(createdAtVal).toLocaleTimeString(
+          "en-US",
+          {
+            hour: "numeric",
+            minute: "numeric",
+          }
+        );
+        return `${formattedDate} at ${formattedTime}`;
+      },
     },
     username: {
       type: String,
@@ -23,7 +41,6 @@ const thoughtSchema = new Schema(
     toJSON: {
       getters: true,
     },
-    id: false,
   }
 );
 
